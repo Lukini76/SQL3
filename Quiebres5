@@ -1,0 +1,15 @@
+select lc.area, pl.locn_putaway_lock Bloqueo, to_char(iw.last_updated_dttm,'dd/mm/YYYY HH24:MI:SS')
+as lastupdated, iw.allocatable, lc.dsp_locn as ubicacion , iw.location_id, iw.lpn_id, iw.tc_lpn_id, it.item_id  , it.item_name 
+as SKU, ifm.putwy_type    , (iw.on_hand_qty-iw.wm_allocated_qty) as Disponible, iw.on_hand_qty as OnHandWMOS  , (iw.wm_allocated_qty)
+as AsignadoWMOS  , iw.to_be_filled_qty as TobeFille, iw.inventory_type, iw.transitional_inventory_type, iw.last_updated_source
+from wm_inventory iw
+left join locn_hdr lc on iw.location_id = lc.locn_id
+left join item_cbo it on iw.item_id = it.item_id
+left join resv_locn_hdr rl on lc.locn_id = rl.locn_id
+left join item_facility_mapping_wms ifm on iw.item_id = ifm.item_id
+left join pick_locn_hdr pl on iw.location_id = pl.locn_id 
+where 1=1 and lc.area in ('GT','GTP','RC','MZ','RCK') and iw.allocatable = 'Y'
+--and it.item_name in ('5822958',
+--'5603653',
+--'881393270',
+--'881453716');
