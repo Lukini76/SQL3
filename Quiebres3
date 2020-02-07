@@ -1,3 +1,4 @@
+--T4estr
 select lc.area, pl.locn_putaway_lock Bloqueo, to_char(iw.last_updated_dttm,'dd/mm/YYYY HH24:MI:SS')
 as lastupdated, iw.allocatable, lc.dsp_locn as ubicacion , iw.location_id, iw.lpn_id, iw.tc_lpn_id, it.item_id  , it.item_name 
 as SKU, ifm.putwy_type    , (iw.on_hand_qty-iw.wm_allocated_qty) as Disponible, iw.on_hand_qty as OnHandWMOS  , (iw.wm_allocated_qty)
